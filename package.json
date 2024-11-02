@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.6",
+    "@mui/material": "^6.1.6",
     "apollo-server-micro": "^3.13.0",
     "graphql": "^16.9.0",
     "mongoose": "^8.7.3",
