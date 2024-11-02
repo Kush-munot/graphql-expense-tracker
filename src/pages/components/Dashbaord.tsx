@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { addExpenseGrid, btn, chipStyles, editDeleteButtonGrid, expenseAmountStyle, expenseAmtStack, expenseMsgStyle, iconStyles, masterGrid, style } from '../globalStyles';
-import { useQuery } from '@apollo/client';
-import { ADD_EXPENSE, EDIT_EXPENSE, GET_EXPENSES } from '../api/graphql/schema/typeDefs';
 
 
 
@@ -195,7 +193,7 @@ const Dashbaord = () => {
         }
     };
 
-    const handleEdit = (expense) => {
+    const handleEdit = (expense: any) => {
         // Set editing mode
         setIsEditing(true);
         setEditingId(expense.id);
@@ -211,7 +209,7 @@ const Dashbaord = () => {
         handleOpen();
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id: any) => {
         try {
             const response = await fetch('/api/graphql', {
                 method: 'POST',
@@ -269,14 +267,14 @@ const Dashbaord = () => {
     ]
     const modeOfPaymentz = ['Cash', 'Credit Card', 'UPI']
 
-    const calculateTotal = (expenses) => {
+    const calculateTotal = (expenses: any[]) => {
         return expenses.reduce((total, expense) => {
             const amount = parseFloat(expense.amount);
             return total + (expense.type === 'Income' ? amount : -amount);
         }, 0);
     };
 
-    const formatTotal = (total) => {
+    const formatTotal = (total: number) => {
         const absoluteTotal = Math.abs(total);
         return new Intl.NumberFormat('en-IN', {
             style: 'currency',
