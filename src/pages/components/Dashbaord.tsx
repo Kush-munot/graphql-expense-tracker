@@ -2,7 +2,7 @@ import { Alert, Box, Button, Chip, Divider, FormControl, Grid, InputLabel, MenuI
 import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { btn, style } from '../globalStyles';
+import { addExpenseGrid, btn, chipStyles, editDeleteButtonGrid, expenseAmountStyle, expenseAmtStack, expenseMsgStyle, iconStyles, masterGrid, style } from '../globalStyles';
 import { useQuery } from '@apollo/client';
 import { ADD_EXPENSE, EDIT_EXPENSE, GET_EXPENSES } from '../api/graphql/schema/typeDefs';
 
@@ -289,21 +289,12 @@ const Dashbaord = () => {
         <>
             <Box style={{ padding: '8rem 0rem', minHeight: 'calc(100vh - 440px)', }}>
                 <Box sx={{ padding: '0 15%', "@media (max-width:760px)": { padding: '0' }, }}>
-                    <Grid container spacing={2} sx={{
-                        width: '100%', marginLeft: '0', marginTop: '0', border: '1px solid #1976d2', borderRadius: '10px', fontFamily: 'Inter',
-                        "@media (max-width:760px)": { padding: '0' }
-                    }}>
+                    <Grid container spacing={2} sx={masterGrid}>
                         <Grid sx={{ marginLeft: '0', marginTop: '0', padding: '0 2rem' }} md={6} sm={6} xs={6}>
                             <h6 style={{ margin: '0.4rem 0 0 0', fontWeight: '400' }}>Total Spends</h6>
                             <h2 style={{ margin: '0.4rem 0' }}>{formatTotal(calculateTotal(expenseData))}</h2>
                         </Grid>
-                        <Grid sx={{
-                            marginLeft: '0', marginTop: '0', display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'right',
-                            padding: '0 2rem',
-                            "@media (max-width:760px)": { justifyContent: 'right' }
-                        }} md={6} sm={6} xs={6}>
+                        <Grid sx={addExpenseGrid} md={6} sm={6} xs={6}>
                             <Button onClick={handleOpen} sx={btn("140px")}>+ Expense</Button>
                         </Grid>
                         {expenseData.slice().reverse().map((expense, index) => {
@@ -315,53 +306,40 @@ const Dashbaord = () => {
                                     <Divider sx={{ width: '100%', backgroundColor: '#1976d2' }} />
                                     <Grid sx={{ marginLeft: '0', marginTop: '0', padding: '0.5rem' }} md={10} sm={10} xs={10}>
                                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <Stack sx={{ backgroundColor: '#dbeafe', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                <Typography sx={{ height: '25px', width: 'auto', margin: '0 0.5rem', fontSize: '0.85rem', color: '#2563eb', fontWeight: '500', fontFamily: 'Inter', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Stack sx={expenseAmtStack}>
+                                                <Typography sx={{ ...expenseAmountStyle, fontSize: '0.85rem', fontWeight: '500' }}>
                                                     INR
                                                 </Typography>
-                                                <Typography sx={{ height: '25px', width: 'auto', margin: '0 0.5rem', fontSize: '1rem', color: '#2563eb', fontWeight: '700', fontFamily: 'Inter', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                <Typography sx={{ ...expenseAmountStyle, fontSize: '1rem', fontWeight: '700' }}>
                                                     {expense.amount}
                                                 </Typography>
                                             </Stack>
                                             <Stack sx={{ width: '100%' }}>
 
-                                                <Typography sx={{
-                                                    margin: '0 5%', fontSize: '1rem', fontWeight: '500', fontFamily: 'Inter', display: 'flex', alignItems: 'center',
-                                                    "@media (max-width:600px)": {
-                                                        fontSize: '1.2rem'
-                                                    },
-                                                }}>
+                                                <Typography sx={expenseMsgStyle}>
                                                     {expense.message}
                                                 </Typography>
                                             </Stack>
                                             <Chip sx={{
-                                                width: 'fit-content', padding: '0 0.05rem', fontSize: '0.8rem', fontWeight: '500', color: '#fff', height: '25px', margin: '0 0 0 5%', borderRadius: '5px', backgroundColor: '#FF5722', 
-                                                "@media (max-width:600px)": {
-                                                    display:'none'
-                                                },
+                                                ...chipStyles, color: '#fff', margin: '0 0 0 5%', backgroundColor: '#FF5722',
+
                                             }} label={expense.category} />
                                             <Chip sx={{
-                                                width: 'fit-content', padding: '0 0.05rem', fontSize: '0.8rem', fontWeight: '500', color: '#000', height: '25px', margin: '0 5px', borderRadius: '5px', backgroundColor: '#FFC107', 
-                                                "@media (max-width:600px)": {
-                                                    display:'none'
-                                                },
+                                                ...chipStyles, color: '#000', margin: '0 5px', backgroundColor: '#FFC107',
+
                                             }} label={expense.modeOfPayment} />
 
 
                                         </Box>
                                     </Grid>
-                                    <Grid md={2} sm={2} xs={2} sx={{
-                                        marginLeft: '0', marginTop: '0', display: 'flex', justifyContent: 'space-around', alignItems: 'center', "@media (max-width:760px)": {
-                                            paddingRight: '0.2rem'
-                                        }
-                                    }}>
+                                    <Grid md={2} sm={2} xs={2} sx={editDeleteButtonGrid}>
                                         <EditIcon
                                             onClick={() => handleEdit(expense)}
-                                            sx={{ cursor: 'pointer', color: '#374151', fontSize: '1.1rem' }}
+                                            sx={iconStyles}
                                         />
                                         <DeleteIcon
                                             onClick={() => handleDelete(expense.id)}
-                                            sx={{ cursor: 'pointer', color: '#374151', fontSize: '1.1rem' }}
+                                            sx={iconStyles}
                                         />
                                     </Grid>
 

@@ -8,9 +8,7 @@ const index = () => {
     return (
         <div>
             <Navbar />
-            {/* <Box sx={{marginTop: '5.57rem', height:'calc(100vh - 28.625rem)'}}> */}
             <Dashbaord />
-            {/* </Box> */}
             <Footer />
         </div>
     )
